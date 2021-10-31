@@ -1,10 +1,11 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
+  namespace: teamblue-production
   name: save-the-world-claim
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
@@ -27,7 +28,14 @@ spec:
       labels:
         app: save-the-world-app
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
       volumes:
+        - name: tmp-volume
+          emptyDir:
+            medium: "Memory"
         - name: save-the-world-data
           persistentVolumeClaim:
             claimName: save-the-world-claim
@@ -37,3 +45,10 @@ spec:
           volumeMounts:
             - mountPath: "/data"
               name: save-the-world-data
+            - mountPath: /tmp
+              name: tmp-volume
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+        
+            
