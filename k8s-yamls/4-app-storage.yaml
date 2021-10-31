@@ -1,0 +1,39 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: save-the-world-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: storagefactory-io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: teamblue-production
+  labels:
+    app: save-the-world-app
+  name: save-the-world-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: save-the-world-app
+  template:
+    metadata: 
+      labels:
+        app: save-the-world-app
+    spec:
+      volumes:
+        - name: save-the-world-data
+          persistentVolumeClaim:
+            claimName: save-the-world-claim
+      containers:
+        - image: ghcr.io/sazo/k8s-event-2021:v0.0.2
+          name: k8s-event-2021
+          volumeMounts:
+            - mountPath: "/data"
+              name: save-the-world-data
