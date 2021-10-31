@@ -4,7 +4,7 @@ ADD . .
 
 RUN go build main.go
 
-FROM gcr.io/distroless/base
+FROM centos:7
 
 COPY --from=builder /go/main /
 
