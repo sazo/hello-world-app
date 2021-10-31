@@ -21,6 +21,10 @@ spec:
         app: hello-world
     spec:
       automountServiceAccountToken: false
+      volumes:
+        - name: tmp-volume
+          emptyDir:
+            medium: "Memory"
       containers:
       - image: ghcr.io/sazo/k8s-event-2021:v0.0.1
         name: k8s-event-2021
@@ -29,3 +33,6 @@ spec:
           runAsGroup: 3000
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
+        volumeMounts:
+          - mountPath: /tmp
+            name: tmp-volume
