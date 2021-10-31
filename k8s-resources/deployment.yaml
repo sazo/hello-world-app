@@ -23,3 +23,4 @@ spec:
       containers:
       - image: ghcr.io/sazo/hello-world-app:v0.0.1
         name: hello-world-app
+# kubectl port-forward deployment/hello-world 8080:8080
