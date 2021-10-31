@@ -20,6 +20,12 @@ spec:
       labels:
         app: hello-world
     spec:
+      automountServiceAccountToken: false
       containers:
       - image: ghcr.io/sazo/k8s-event-2021:v0.0.1
         name: k8s-event-2021
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 3000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
