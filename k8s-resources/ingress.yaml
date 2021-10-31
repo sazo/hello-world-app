@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: teamblue-production
+  labels:
+    app: hello-world
+  name: hello-world
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: hello-world
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: teamblue-production
+  name: hello-world-ingress
+spec:
+  rules:
+  - host: "hello-world.kube-public.stag.hostedshop.dk"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-world
+            port:
+              number: 80
