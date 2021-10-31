@@ -33,4 +33,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/sazo/k8s-event-2021:${{ steps.vars.outputs.tag }}
+        tags: ghcr.io/sazo/hello-world-app:${{ steps.vars.outputs.tag }}
