@@ -21,5 +21,5 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: ghcr.io/sazo/k8s-event-2021:v0.0.1
-        name: k8s-event-2021
+      - image: ghcr.io/sazo/hello-world-app:v0.0.1
+        name: hello-world-app
