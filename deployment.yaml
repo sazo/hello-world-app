@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: teamblue-production
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: teamblue-production
+  labels:
+    app: hello-world
+  name: hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata: 
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - image: ghcr.io/sazo/k8s-event-2021:v0.0.1
+        name: k8s-event-2021
